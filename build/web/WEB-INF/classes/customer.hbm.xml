@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  
+    <class name="edu.neu.ngmodani.pojo.Customer" table="customer">
+        <id name="customerID" type="java.lang.Integer">
+            <column name="customerID" />
+            <generator class="identity" />
+        </id>
+        <property name="firstName" column="first" type="string" />
+        <property name="lastName" column="last" type="string" />
+        <property name="gender" column="gender" type="string" />
+        <property name="age" column="age" type="int" />
+        <property name="userName" column="username" type="string" />
+        <property name="password" column="password" type="string" />
+        <property name="photoName" column="photoname" type="string" />
+        <property name="membership_type" column="membershiptype" type="string" />
+        <property name="height" column="height" type="int" />
+        <property name="weight" column="weight" type="int" />
+        <property name="ratings" column="ratings" type="int" />
+        <property name="speciality" column="speciality" type="string" />
+        <property name="dateofsubscription" column="dateofsubscription" type="string" />
+        <property name="waist" column="waist" type="int" />
+        <property name="chest" column="chest" type="int" />
+        <property name="biceps" column="biceps" type="int" />
+        <property name="trainerUserName" column="trainerusername" type="string" />
+        
+        <set name="routine" table="routine" inverse="true" lazy="true" fetch="select">
+            <key> 
+                <column name="customerID"/>
+            </key>
+            <one-to-many class="edu.neu.ngmodani.pojo.Routine" />
+        </set>
+       
+        
+    </class>
+  
+  
+</hibernate-mapping>

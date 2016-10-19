@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  
+    <class name="edu.neu.ngmodani.pojo.Routine" table="routine">
+        <id name="routineID" type="java.lang.Integer">
+            <column name="routineID" />
+            <generator class="identity" />
+        </id>
+        <property name="date" column="date" type="date" />
+        <property name="daysofweek" column="daysofweek" type="string" />
+        
+        <property name="exercise1" column="exercise1" type="string" />
+        <property name="exercise1url" column="exercise1url" type="string" />
+        <property name="exercise2" column="exercise2" type="string" />
+        <property name="exercise2url" column="exercise2url" type="string" />
+        <property name="exercise3" column="exercise3" type="string" />
+        <property name="exercise3url" column="exercise3url" type="string" />
+        <property name="exercise4" column="exercise4" type="string" />
+        <property name="exercise4url" column="exercise4url" type="string" />
+     
+        <many-to-one name="customer" class="edu.neu.ngmodani.pojo.Customer" fetch="select">
+            <column name="customer" not-null="true" />
+        </many-to-one>
+    </class>
+  
+  
+</hibernate-mapping>
+

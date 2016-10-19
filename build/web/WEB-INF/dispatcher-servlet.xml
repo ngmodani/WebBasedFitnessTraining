@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    
+   
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+                <prop key="addperson.htm">regController</prop>
+                <prop key="login.htm">loginController</prop>
+                <prop key="home.htm">loginController</prop>
+                <prop key="logout.htm">loginController</prop>
+                <prop key="updatecustomer.htm">updateController</prop>
+                <prop key="searchtrainer.htm">searchTrainerController</prop>
+                <prop key="selecttrainer.htm">selectTrainerController</prop>
+                <prop key="viewroutine.htm">viewRoutineController</prop>
+                <prop key="sendmessage.htm">sendMessageController</prop>
+                <prop key="viewmessage.htm">viewMessagesController</prop>
+                <prop key="updatetrainerprofile.htm">updateTrainerController</prop>
+                <prop key="addroutine.htm">addNewRoutineController</prop>
+                <prop key="ratetrainer.htm">rateTrainerController</prop>
+                <prop key="viewmytrainer.htm">viewMyTrainerController</prop>
+                
+                <prop key="addnewroutine.htm">addNewRoutineController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+   
+    <bean id="regValidator" class="edu.neu.ngmodani.validator.RegValidator" />
+    <bean id="updateValidator" class="edu.neu.ngmodani.validator.UpdateValidator" />
+    <bean id="routineValidator" class="edu.neu.ngmodani.validator.RoutineValidator" />
+    <bean id="messageValidator" class="edu.neu.ngmodani.validator.MessageValidator" />
+    <bean id="updateTrainerValidator" class="edu.neu.ngmodani.validator.UpdateTrainerValidator" />
+    
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+    
+   
+    <bean name="regController" class="edu.neu.ngmodani.controller.RegistrationController">
+        <property name="commandName" value="customer"/>
+        <property name="commandClass" value="edu.neu.ngmodani.pojo.Customer" />
+        <property name="formView" value="registrationview" />
+        <property name="successView" value="index" /> 
+        <property name="validator" ref="regValidator"/>
+    </bean>
+    
+    <bean name="loginController" class="edu.neu.ngmodani.controller.LoginController"></bean>
+    <bean name="selectTrainerController" class="edu.neu.ngmodani.controller.SelectTrainerController"></bean>
+    <bean name="viewRoutineController" class="edu.neu.ngmodani.controller.ViewRoutineController"></bean>
+    <bean name="searchTrainerController" class="edu.neu.ngmodani.controller.SearchTrainerController"></bean>
+    <bean name="viewMessagesController" class="edu.neu.ngmodani.controller.ViewMessagesController"></bean>
+    <bean name="rateTrainerController" class="edu.neu.ngmodani.controller.RateTrainerController"></bean>
+    <bean name="viewMyTrainerController" class="edu.neu.ngmodani.controller.ViewMyTrainerController"></bean>
+    
+    <bean name="updateController" class="edu.neu.ngmodani.controller.UpdateProfileController">
+        <property name="commandName" value="customer"/>
+        <property name="commandClass" value="edu.neu.ngmodani.pojo.Customer" />
+        <property name="formView" value="updateprofile" />
+        <property name="successView" value="customerview" /> 
+        <property name="validator" ref="updateValidator"/>
+    </bean>
+    
+    <bean name="updateTrainerController" class="edu.neu.ngmodani.controller.UpdateTrainerController">
+        <property name="commandName" value="customer"/>
+        <property name="commandClass" value="edu.neu.ngmodani.pojo.Customer" />
+        <property name="formView" value="updatetrainerprofile" />
+        <property name="successView" value="trainerview" /> 
+        <property name="validator" ref="updateTrainerValidator"/>
+    </bean>
+    
+    <bean name="addNewRoutineController" class="edu.neu.ngmodani.controller.AddNewRoutineController">
+        <property name="commandName" value="routine"/>
+        <property name="commandClass" value="edu.neu.ngmodani.pojo.Routine" />
+        <property name="formView" value="addnewroutine" />
+        <property name="successView" value="success" /> 
+        <property name="validator" ref="routineValidator"/>
+    </bean>
+    
+    <bean name="sendMessageController" class="edu.neu.ngmodani.controller.SendMessageController">
+        <property name="commandName" value="message"/>
+        <property name="commandClass" value="edu.neu.ngmodani.pojo.Message" />
+        <property name="formView" value="sendmessage" />
+        <property name="successView" value="success" /> 
+        <property name="validator" ref="messageValidator"/>
+    </bean>
+    
+    
+    
+    
+</beans>
